@@ -3,7 +3,7 @@ title: 'GitHub Copilot Terminology Glossary'
 description: 'A quick reference guide defining common GitHub Copilot and platform-specific terms.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-04-02
+lastUpdated: 2026-10-30
 estimatedReadingTime: '8 minutes'
 tags:
   - glossary
@@ -247,6 +247,20 @@ An installable package that extends GitHub Copilot CLI with a bundled set of age
 
 ---
 
+### Agent Merge
+
+A feature available in both the GitHub Copilot app and VS Code's Agents window (v1.136+, Preview) that automates carrying a pull request to completion. It monitors CI/CD checks, addresses review feedback and failing tests, resolves merge conflicts, reruns workflows, and can merge the pull request once everything passes—repeating the cycle until the PR is ready.
+
+**Example**: Enabling Agent Merge on a session so that once its PR is opened, Copilot keeps addressing CI failures and reviewer comments without you manually re-prompting it.
+
+**When to use**: For routine PR follow-through where you want Copilot to handle the iterative fix-review-merge loop instead of you monitoring it manually.
+
+**Learn more**: [Getting Started with the GitHub Copilot app](../github-copilot-app/)
+
+**Related terms**: [Coding Agent](#coding-agent), [Agent](#agent)
+
+---
+
 ### Tools
 
 Capabilities that GitHub Copilot can invoke to perform actions or retrieve information. Tools fall into two categories:
@@ -262,6 +276,32 @@ tools: ['codebase', 'terminalCommand', 'github']
 ```
 
 **Related terms**: [MCP](#mcp-model-context-protocol), [Built-in Tool](#built-in-tool), [Agent](#agent)
+
+---
+
+### Microsoft Copilot SDK
+
+The Microsoft Copilot SDK is the evolving programmable interface for the shared Copilot agent harness used across Microsoft and GitHub products. It is transitioning from the GitHub Copilot SDK in phases; existing package names, namespaces, and some documentation may continue to use GitHub branding, and no immediate changes are required. For current package details, see the [SDK repository](https://github.com/github/copilot-sdk) and the [transition announcement](https://github.blog/changelog/2026-10-28-github-copilot-sdk-is-becoming-microsoft-copilot-sdk/).
+
+**Example**: Building an application that uses the shared Copilot agent harness programmatically.
+
+**Learn more**: [Official transition announcement](https://github.blog/changelog/2026-10-28-github-copilot-sdk-is-becoming-microsoft-copilot-sdk/)
+
+**Related terms**: [Agent](#agent), [Coding Agent](#coding-agent)
+
+---
+
+### Agent Host
+
+A VS Code component (v1.136+) that lets multiple VS Code windows connect to the same agent session. It runs agent harnesses (such as Copilot or Claude) in a dedicated process built on the open **Agent Host Protocol (AHP)**. The Copilot harness uses the Microsoft Copilot SDK (formerly GitHub Copilot SDK) to keep its behavior aligned with the Copilot CLI, the standalone GitHub Copilot app, and other Copilot products.
+
+**Example**: Starting a session in one VS Code window, then reconnecting to the same live session from a second window without losing state.
+
+**When to use**: When you want a consistent agent session shared across multiple editor windows, or when you want the same underlying agent behavior across VS Code, the CLI, and the Copilot app.
+
+**Learn more**: [Agent Host](https://code.visualstudio.com/updates/v1_136#_agent-host)
+
+**Related terms**: [Agent](#agent), [Coding Agent](#coding-agent), [Microsoft Copilot SDK](#microsoft-copilot-sdk)
 
 ---
 

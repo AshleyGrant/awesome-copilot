@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "plugins/**"
+      - ".github/workflows/check-plugin-structure.yml"
 
 permissions:
   contents: read
@@ -93,7 +94,7 @@ jobs:
                   if (files.length > 0) {
                     errors.push(
                       `${pluginPath}/${subdir}/ contains ${files.length} file(s): ${files.join(', ')}. ` +
-                      `Plugin directories on main should only contain .github/plugin/plugin.json and README.md. ` +
+                      `Plugin directories on main should only contain plugin.json and README.md. ` +
                       `Agent, command, and skill files are materialized automatically during publish to marketplace.`
                     );
                   }
@@ -121,7 +122,7 @@ jobs:
                 '⚠️ **Materialized files or symlinks detected in plugin directories**',
                 '',
                 'Plugin directories on the `main` branch should only contain:',
-                '- `.github/plugin/plugin.json` (metadata)',
+                '- `plugin.json` (metadata)',
                 '- `README.md`',
                 '',
                 'Agent, command, and skill files are copied in automatically when publishing to `marketplace`.',
