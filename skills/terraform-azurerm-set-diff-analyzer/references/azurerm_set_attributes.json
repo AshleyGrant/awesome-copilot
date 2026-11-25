@@ -1,42 +1,20 @@
 {
     "metadata": {
         "description": "AzureRM Provider Set-type attribute definitions",
-        "lastUpdated": "2026-01-28",
+        "lastUpdated": "2026-11-25",
         "source": "Terraform Registry documentation and AzureRM Provider source code"
     },
     "resources": {
         "azurerm_application_gateway": {
             "backend_address_pool": "name",
             "backend_http_settings": "name",
-            "custom_error_configuration": "status_code",
-            "frontend_ip_configuration": "name",
             "frontend_port": "name",
-            "gateway_ip_configuration": "name",
             "http_listener": "name",
             "probe": "name",
             "private_link_configuration": "name",
             "redirect_configuration": "name",
             "request_routing_rule": "name",
-            "rewrite_rule_set": {
-                "_key": "name",
-                "rewrite_rule": {
-                    "_key": "name",
-                    "condition": "variable",
-                    "request_header_configuration": "header_name",
-                    "response_header_configuration": "header_name"
-                }
-            },
-            "ssl_certificate": "name",
-            "ssl_profile": "name",
-            "trusted_client_certificate": "name",
-            "trusted_root_certificate": "name",
-            "url_path_map": {
-                "_key": "name",
-                "path_rule": {
-                    "_key": "name",
-                    "paths": null
-                }
-            }
+            "ssl_certificate": "name"
         },
         "azurerm_lb": {
             "frontend_ip_configuration": "name"

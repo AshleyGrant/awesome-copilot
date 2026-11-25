@@ -2,7 +2,7 @@
 
 This document explains the overview and maintenance of `azurerm_set_attributes.json`.
 
-> **Last Updated**: January 28, 2026
+> **Last Updated**: November 25, 2026
 
 ## Overview
 
@@ -34,22 +34,19 @@ This is called a "false-positive diff".
 
 ### Nested Format
 
-When a Set attribute contains another Set attribute:
+When a block contains Set attributes:
 
 ```json
 {
-  "rewrite_rule_set": {
-    "_key": "name",
-    "rewrite_rule": {
-      "_key": "name",
-      "condition": "variable",
-      "request_header_configuration": "header_name"
-    }
+  "vpn_client_configuration": {
+    "_key": null,
+    "root_certificate": "name",
+    "revoked_certificate": "name"
   }
 }
 ```
 
-- **`_key`**: The key attribute for that level's Set elements
+- **`_key`**: The key attribute for that level's elements (`null` when the block has a single element or no key)
 - **Other keys**: Definitions for nested Set attributes
 
 ### Example: azurerm_application_gateway
@@ -57,15 +54,17 @@ When a Set attribute contains another Set attribute:
 ```json
 "azurerm_application_gateway": {
   "backend_address_pool": "name",           // Simple Set (key is name)
-  "rewrite_rule_set": {                     // Nested Set
-    "_key": "name",
-    "rewrite_rule": {
-      "_key": "name",
-      "condition": "variable"
-    }
-  }
+  "http_listener": "name",
+  "request_routing_rule": "name"
 }
 ```
+
+Only `TypeSet` blocks belong here. Application Gateway blocks such as
+`url_path_map` (with `path_rule`), `rewrite_rule_set`, `frontend_ip_configuration`,
+`ssl_profile`, and `trusted_root_certificate` are `TypeList` blocks. A reordering
+in a list is a real change: Application Gateway evaluates path rules in the order
+they are listed, so reordering overlapping path rules changes which backend serves
+a request.
 
 ## Maintenance
 
@@ -79,6 +78,7 @@ When a Set attribute contains another Set attribute:
 2. **Check Source Code (more reliable)**
    - Search for the resource in [AzureRM Provider GitHub](https://github.com/hashicorp/terraform-provider-azurerm)
    - Confirm `Type: pluginsdk.TypeSet` in the schema definition
+   - Do not add `Type: pluginsdk.TypeList` blocks: their order is part of the configuration, so an order-only change in a list is a real change
    - Identify attributes within the Set's `Schema` that can serve as `_key`
 
 3. **Add to JSON**
